@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Fraunces", Georgia, serif;
+    --font-sans: "Inter", system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  * {
+    border-color: #D6D4CF;
+    border-radius: 2px;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: #F7F6F3;
+    color: #1C1C1A;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.5625rem;
+  }
+
+  ::selection {
+    background: #C4A574;
+    color: #1C1C1A;
+  }
+
+  /* Restrained, engineering-grade focus ring. */
+  :focus-visible {
+    outline: 1px solid #2C3E50;
+    outline-offset: 2px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    height: 18px;
+  }
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 2px;
+    background: #D6D4CF;
+  }
+  input[type="range"]::-moz-range-track {
+    height: 2px;
+    background: #D6D4CF;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    margin-top: -5px;
+    background: #2C3E50;
+    border: none;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: none;
+    border-radius: 0;
+    background: #2C3E50;
+  }
+  input[type="range"]:disabled::-webkit-slider-thumb {
+    background: #A3A29C;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #EFEDE8;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D6D4CF;
+    border: 3px solid #EFEDE8;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #B9B6AF;
+  }
+}
+
+@layer components {
+  /* --- Paper texture: warm concrete grain, extremely low contrast --- */
+  .paper-grain {
+    background-color: #F7F6F3;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+
+  /* --- Drafting grid (millimetre paper) --- */
+  .grid-fine {
+    background-image:
+      linear-gradient(to right, rgba(214, 212, 207, 0.7) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(214, 212, 207, 0.7) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .grid-fine-lg {
+    background-image:
+      linear-gradient(to right, rgba(214, 212, 207, 0.85) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(214, 212, 207, 0.85) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .grid-fine-sm {
+    background-image:
+      linear-gradient(to right, rgba(214, 212, 207, 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(214, 212, 207, 0.55) 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+
+  /* --- Diagonal hatching: empty facings / zones requiring attention --- */
+  .hatch-brick {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(179, 71, 71, 0.22) 0,
+      rgba(179, 71, 71, 0.22) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  }
+
+  .hatch-brass {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(196, 165, 116, 0.3) 0,
+      rgba(196, 165, 116, 0.3) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  }
+
+  .hatch-forest {
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(42, 111, 92, 0.2) 0,
+      rgba(42, 111, 92, 0.2) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  }
+
+  /* --- Typographic helpers --- */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5e5e59;
+  }
+
+  .tabular {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  .rule-x {
+    background-image: linear-gradient(to right, #D6D4CF 0 4px, transparent 4px 8px);
+    background-size: 8px 1px;
+    background-repeat: repeat-x;
+  }
+
+  /* Offset print hover: the contour shifts 1–2px as if the plate misregistered. */
+  .press {
+    transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 220ms cubic-bezier(0.4, 0, 0.2, 1),
+      background-color 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .press:hover {
+    transform: translate(1px, 1px);
+    border-color: #C4A574;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
